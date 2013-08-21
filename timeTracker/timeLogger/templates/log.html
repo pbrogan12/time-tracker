@@ -1,11 +1,24 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Logs</h1>
-<ul>
-    {% for i in logs %}
-    <li>{{ i.name }} -- {{ i.notes }} <a href="{% url 'delLog' i.id %}">X</a></li>
-    {% endfor %}
-</ul>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Notes</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            {% for i in logs %}
+                <td>{{ i.name }}</td>
+                <td>{{ i.notes }}</td>
+                <td><a href="{% url 'delLog' i.id %}"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></button></a></li>
+            </tr>
+                        {% endfor %}
+        </tbody>
+    </table>
 <ul>
     <li><a href={% url 'addLog' %}> Add log </a></li>
     <li><a href={% url 'addActivity' %}> Add activity </a></li>
