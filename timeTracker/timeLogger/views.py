@@ -1,10 +1,10 @@
 # Create your views here.
 from timeLogger.models import logActivity
 from django.http import HttpResponse
+from django.shortcuts import render
 
 def showLogs(request):
-    a = logActivity.objects.all()
-    for i in a:
-        print a 
-    return HttpResponse(a)
+    logs = logActivity.objects.all()
+    context = {'logs': logs}
+    return render(request, 'index.html', context)
 
