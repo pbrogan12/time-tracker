@@ -1,6 +1,10 @@
 from django.forms import ModelForm
-from timeLogger.views import logActivity
+from timeLogger.views import logActivity, Activity
 
-class logActivityForm(ModelForm):
+class LogActivityForm(ModelForm):
     class Meta:
         model = logActivity
+
+class ActivityForm(ModelForm):
+    class Meta:
+        model = Activity
