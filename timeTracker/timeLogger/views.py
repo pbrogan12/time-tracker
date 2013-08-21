@@ -42,3 +42,6 @@ def delLog(request, logId):
     logs = logActivity.objects.filter(id=logId).delete()
     return redirect('logs')
 
+def delActivity(request, logId):
+    logs = Activity.objects.filter(id=logId).delete()
+    return redirect('showActivities')
