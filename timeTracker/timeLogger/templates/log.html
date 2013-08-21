@@ -1,3 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
 <h1>Logs</h1>
 <ul>
     {% for i in logs %}
@@ -8,4 +10,4 @@
     <li><a href={% url 'addLog' %}> Add log </a></li>
     <li><a href={% url 'addActivity' %}> Add activity </a></li>
     <li><a href={% url 'showActivities' %}> See Activities </a></li>
-
+{% endblock %}
