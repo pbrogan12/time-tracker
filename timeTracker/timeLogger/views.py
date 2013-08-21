@@ -5,19 +5,11 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 def showLogs(request):
-    logs = logActivity.objects.all()
-    context = {'logs': logs}
-    return render(request, 'log.html', context)
-
-def showActivities(request):
-    activities = Activity.objects.all()
-    context = {'activities':activities}
-    return render(request, 'activities.html', context)
-
-def addLog(request):
     if request.method == 'GET':
+        logs = logActivity.objects.all()
+        context = {'logs': logs}
         form = LogActivityForm()
-        return render(request,'form.html',locals())
+        return render(request,'log.html',locals())
     elif request.method == 'POST':
         form = LogActivityForm(request.POST)
         if form.is_valid():
@@ -25,6 +17,12 @@ def addLog(request):
             return redirect('logs')
         else:
             return redirect('logs')
+
+
+def showActivities(request):
+    activities = Activity.objects.all()
+    context = {'activities':activities}
+    return render(request, 'activities.html', context)
 
 def addActivity(request):
     if request.method == 'GET':
