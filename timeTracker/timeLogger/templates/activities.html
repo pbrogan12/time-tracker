@@ -1,0 +1,9 @@
+<h1>Logs</h1>
+<ul>
+    {% for i in activities %}
+    <li>{{i}}</li>
+    {% endfor %}
+</ul>
+<a href={% url 'logs' %}> Show logs </a>
+<a href={% url 'addLog' %}> Add log </a>
+<a href={% url 'addActivity' %}> Add activity </a>

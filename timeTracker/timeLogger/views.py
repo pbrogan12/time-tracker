@@ -7,7 +7,12 @@ from django.shortcuts import render, redirect
 def showLogs(request):
     logs = logActivity.objects.all()
     context = {'logs': logs}
-    return render(request, 'index.html', context)
+    return render(request, 'log.html', context)
+
+def showActivities(request):
+    activities = Activity.objects.all()
+    context = {'activities':activities}
+    return render(request, 'activities.html', context)
 
 def addLog(request):
     if request.method == 'GET':
@@ -29,9 +34,9 @@ def addActivity(request):
         form = ActivityForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('logs')
+            return redirect('showActivities')
         else:
-            return redirect('logs')
+            return redirect('showActivities')
 
 def delLog(request, logId):
     logs = logActivity.objects.filter(id=logId).delete()
