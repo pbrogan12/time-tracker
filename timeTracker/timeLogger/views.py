@@ -20,14 +20,11 @@ def showLogs(request):
 
 
 def showActivities(request):
-    activities = Activity.objects.all()
-    context = {'activities':activities}
-    return render(request, 'activities.html', context)
-
-def addActivity(request):
     if request.method == 'GET':
+        activities = Activity.objects.all()
+        context = {'activities':activities}
         form = ActivityForm()
-        return render(request,'form.html',locals())
+        return render(request,'activities.html',locals())
     elif request.method == 'POST':
         form = ActivityForm(request.POST)
         if form.is_valid():
