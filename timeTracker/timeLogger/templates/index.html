@@ -1,7 +1,7 @@
 <h1>Logs</h1>
 <ul>
     {% for i in logs %}
-    <li>{{ i.name }} -- {{ i.notes }}</li>
+    <li>{{ i.name }} -- {{ i.notes }} <a href="{% url 'delLog' i.id %}">X</a></li>
     {% endfor %}
 </ul>
 <a href={% url 'addLog' %}> Add log </a>

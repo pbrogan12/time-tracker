@@ -21,4 +21,7 @@ def addLog(request):
         else:
             return redirect('logs')
 
+def delLog(request, logId):
+    logs = logActivity.objects.filter(id=logId).delete()
+    return redirect('logs')
 
