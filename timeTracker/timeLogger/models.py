@@ -9,8 +9,9 @@ class Activity(models.Model):
 
 class logActivity(models.Model):
     name = models.ForeignKey('Activity')
-    startTime = models.DateTimeField()
-    endTime = models.DateTimeField()
+    date = models.DateField()
+    startTime = models.TimeField()
+    endTime = models.TimeField()
     notes = models.TextField(max_length=20)
     
     def __unicode__(self):
