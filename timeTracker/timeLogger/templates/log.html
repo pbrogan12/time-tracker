@@ -58,7 +58,10 @@
                     <th>
                         {{ field.label_tag }}
                     </th>
-                    <td> {{ field }} 
+                    <td> 
+                        <div class="input-group">
+                            {{ field }} 
+                        </div>
                     </td>
                 </tr>
                 {% endfor %}
@@ -67,4 +70,9 @@
         <button type="button" onClick="document.forms[0].submit();return false;" class="btn btn-primary">Add log</button>
      </div>
 </div>
+{% endblock %}
+{% block js %}
+$(document).ready(function(){ 
+$("input").addClass("form-control");
+});
 {% endblock %}
