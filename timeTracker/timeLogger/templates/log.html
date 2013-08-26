@@ -58,11 +58,19 @@
                     <th>
                         {{ field.label_tag }}
                     </th>
-                    <td> 
+                    <td>
+                        {% if 'date' in field.label_tag %} 
                         <div class="input-group">
                             {{ field }} 
+                            <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
                             {{ field.errors }}
                         </div>
+                        {% else %}
+                            {{ field }} 
+                            {{ field.errors }}
+                        {% endif %}
                     </td>
                 </tr>
                 {% endfor %}
