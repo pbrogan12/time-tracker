@@ -67,7 +67,7 @@
                             </span>
                             {{ field.errors }}
                         </div>
-                        {% elif 'Time' in field.label_tag %}
+                        {% elif 'time' in field.label_tag %}
                         <div class="input-group">
                             <span class="input-group-btn">
                                 <button id="startButton" class="btn btn-success" type="button">Start</button>
@@ -102,14 +102,14 @@ $('.datepicker').datepicker({
     autoclose: 'true',
     todayHighlight: 'true',
     });
-$('#id_startTime').runner({
+$('#id_time').runner({
     milliseconds: false,
 });
 $('#startButton').click(function() {
-    $('#id_startTime').runner('start');
+    $('#id_time').runner('start');
 });
 $('#stopButton').click(function() {
-    $('#id_startTime').runner('stop');
+    $('#id_time').runner('stop');
 });
 });
 {% endblock %}
