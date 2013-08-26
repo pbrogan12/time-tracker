@@ -69,10 +69,12 @@
                         </div>
                         {% elif 'Time' in field.label_tag %}
                         <div class="input-group">
-                            {{ field }} 
-                            <span class="input-group-addon">
-                            <span id="button" class="glyphicon glyphicon-time"></span>
+                            <span class="input-group-btn">
+                                <button id="button" class="btn btn-default" type="button">
+                                    Start
+                                </button>
                             </span>
+                            {{ field }} 
                             {{ field.errors }}
                         </div>
                         {% else %}
