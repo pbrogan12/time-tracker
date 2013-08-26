@@ -6,41 +6,10 @@
 {% endblock %}
 
 {% block content %}
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Add Activity</h4>
-        </div>
-        <div class="modal-body">
-            <form action="" method="post">{% csrf_token %}
-                <table class="table table-condensed">
-                    {% for field in form %}
-                <tr>
-                    <th>
-                        {{ field.label_tag }}
-                    </th>
-                    <td> {{ field }} 
-                    </td>
-                </tr>
-                {% endfor %}
-                </table>
-            </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" onclick="document.forms[0].submit();return false;" class="btn btn-primary">
-              Submit
-        </button>
-        </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
-
-  <h1>Activities <a data-toggle="modal" href="#myModal" class="btn btn-success"><span class="glyphicon glyphicon-plus"></a></h1>
-    <table class="table table-bordered">
+<div class="row">
+    <div class="col-md-6">
+        <h1>Activities</h1>
+        <table class="table table-bordered">
         <thead>
             <tr>
                 <th>Name</th>
@@ -56,5 +25,24 @@
                         {% endfor %}
         </tbody>
     </table>
-<ul>
+    </div>
+    <div class="col-md-6">
+        <h1>Add Activity</h1>
+            <form action="" method="post">{% csrf_token %}
+                <table class="table table-condensed">
+                    {% for field in form %}
+                <tr>
+                    <th>
+                        {{ field.label_tag }}
+                        {{ field.errors }}
+                    </th>
+                    <td> {{ field }} 
+                    </td>
+                </tr>
+                {% endfor %}
+                </table>
+            </form>
+                <button type="button" onclick="document.forms[0].submit();return false;" class="btn btn-primary">Add Activity</button>
+     </div>
+</div>
 {% endblock %}

@@ -32,7 +32,8 @@ def showActivities(request):
             form.save()
             return redirect('showActivities')
         else:
-            return redirect('showActivities')
+            activities = Activity.objects.all()
+            return render(request,'activities.html',locals())
 
 def delLog(request, logId):
     logs = logActivity.objects.filter(id=logId).delete()
