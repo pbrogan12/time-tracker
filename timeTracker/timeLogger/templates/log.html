@@ -91,5 +91,7 @@
 {% block js %}
 $(document).ready(function(){ 
 $("input").addClass("form-control");
+$("#id_date").attr('readonly', 'readonly');
+$("#id_date").attr('value', '{% now 'Y-m-d' %}');
 });
 {% endblock %}
