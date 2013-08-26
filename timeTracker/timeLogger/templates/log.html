@@ -70,9 +70,9 @@
                         {% elif 'Time' in field.label_tag %}
                         <div class="input-group">
                             <span class="input-group-btn">
-                                <button id="button" class="btn btn-default" type="button">
-                                    Start
-                                </button>
+                                <button id="startButton" class="btn btn-success" type="button">Start</button>
+                                <button id="stopButton" class="btn btn-danger" type="button">Stop</button>
+                            </span>
                             </span>
                             {{ field }} 
                             {{ field.errors }}
@@ -103,8 +103,11 @@ $('.datepicker').datepicker({
     todayHighlight: 'true',
     });
 $('#id_startTime').runner();
-$('#button').click(function() {
+$('#startButton').click(function() {
     $('#id_startTime').runner('start');
+});
+$('#stopButton').click(function() {
+    $('#id_startTime').runner('stop');
 });
 });
 {% endblock %}
