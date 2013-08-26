@@ -56,12 +56,12 @@
                     {% for field in form %}
                 <tr>
                     <th>
-                        {{ field.errors }}
                         {{ field.label_tag }}
                     </th>
                     <td> 
                         <div class="input-group">
                             {{ field }} 
+                            {{ field.errors }}
                         </div>
                     </td>
                 </tr>
