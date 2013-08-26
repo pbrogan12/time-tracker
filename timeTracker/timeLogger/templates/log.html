@@ -67,6 +67,14 @@
                             </span>
                             {{ field.errors }}
                         </div>
+                        {% elif 'Time' in field.label_tag %}
+                        <div class="input-group">
+                            {{ field }} 
+                            <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-time"></span>
+                            </span>
+                            {{ field.errors }}
+                        </div>
                         {% else %}
                             {{ field }} 
                             {{ field.errors }}
