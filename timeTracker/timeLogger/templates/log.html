@@ -102,7 +102,9 @@ $('.datepicker').datepicker({
     autoclose: 'true',
     todayHighlight: 'true',
     });
-$('#id_startTime').runner();
+$('#id_startTime').runner({
+    milliseconds: false,
+});
 $('#startButton').click(function() {
     $('#id_startTime').runner('start');
 });
