@@ -16,7 +16,8 @@ def showLogs(request):
             form.save()
             return redirect('logs')
         else:
-            return redirect('logs')
+            logs = logActivity.objects.all()
+            return render(request,'log.html',locals())
 
 
 def showActivities(request):

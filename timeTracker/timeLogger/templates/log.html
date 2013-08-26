@@ -56,6 +56,7 @@
                     {% for field in form %}
                 <tr>
                     <th>
+                        {{ field.errors }}
                         {{ field.label_tag }}
                     </th>
                     <td> 
