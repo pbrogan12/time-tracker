@@ -71,7 +71,7 @@
                         <div class="input-group">
                             {{ field }} 
                             <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-time"></span>
+                            <span id="button" class="glyphicon glyphicon-time"></span>
                             </span>
                             {{ field.errors }}
                         </div>
@@ -99,6 +99,10 @@ $('.datepicker').datepicker({
     format: 'yyyy-mm-dd',
     autoclose: 'true',
     todayHighlight: 'true',
+    });
+$('#id_startTime').runner();
+$('#button').click(function() {
+    $('#id_startTime').runner('start');
 });
 });
 {% endblock %}
