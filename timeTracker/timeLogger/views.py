@@ -4,10 +4,11 @@ from timeLogger.models import logActivity, Activity
 from timeLogger.forms import LogActivityForm, ActivityForm
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+import datetime
 
 def showLogs(request):
     if request.method == 'GET':
-        logs = logActivity.objects.all()
+        logs = logActivity.objects.filter(date=datetime.date.today())
         totalTime = logActivity.objects.aggregate(Sum('time'))
         totalTime = totalTime['time__sum']
         form = LogActivityForm()
