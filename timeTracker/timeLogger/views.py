@@ -9,7 +9,7 @@ import datetime
 def showLogs(request):
     if request.method == 'GET':
         logs = logActivity.objects.filter(date=datetime.date.today())
-        totalTime = logActivity.objects.aggregate(Sum('time'))
+        totalTime = logActivity.objects.filter(date=datetime.date.today()).aggregate(Sum('time'))
         totalTime = totalTime['time__sum']
         form = LogActivityForm()
         return render(request,'log.html',locals())
