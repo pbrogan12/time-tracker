@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block nav %}
+    <li><a href="{% url 'logs' %}">Activity Log</a></li>
+    <li><a href="{% url 'showActivities' %}">Activities</a></li>
+{% endblock %}
+
+{% block content %}
+  {% for i in logs %}
+  <div class="modal fade" id="myModal{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Delete Log</h4>
+        </div>
+        <div class="modal-body">
+            <p>Are you sure you want to delete this log.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" onClick="location.href='{% url 'delLog' i.id %}';">
+              Delete
+              <span class="glyphicon glyphicon-remove"></button>
+        </button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  {% endfor %}
+  <div class="row">
+      <div class="col-md-6">
+          <ul class="list-inline">
+              <li>
+              <h1>Last 7 Days</h1> 
+              </li>
+              <li>
+              <h4><span class="label label-primary">Total time today {% widthratio totalTime 60 1 %} min</span></h4>
+              </li>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Notes</th>
+                <th>Time</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in logs %}
+            <tr>
+                <td>{{ i.name }}</td>
+                <td>{{ i.notes }}</td>
+                <td>{% widthratio i.time 60 1 %} min</td>
+                <td>{{ i.date }}</td>
+                <td><a data-toggle="modal" href="#myModal{{i.id}}"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></button></a>
+                        <a href="{% url 'editLog' i.id %}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></button></a></td>
+            </tr>
+                        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+{% endblock %}

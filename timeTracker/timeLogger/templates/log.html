@@ -96,7 +96,12 @@
             </table>
         </form>
         <button type="button" onClick="document.forms[0].submit();return false;" class="btn btn-primary">Add log</button>
-     </div>
+    </div>
+    <ul class="list-inline">
+        <li>
+        <a href="{% url 'logsLast7' %}" class="btn btn-primary">Last 7 Days</a>
+        </li>
+    </ul>
 </div>
 {% endblock %}
 {% block js %}

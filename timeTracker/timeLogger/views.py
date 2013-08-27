@@ -4,7 +4,7 @@ from timeLogger.models import logActivity, Activity
 from timeLogger.forms import LogActivityForm, ActivityForm
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-import datetime
+import datetime 
 
 def showLogs(request):
     if request.method == 'GET':
@@ -26,6 +26,10 @@ def showLogs(request):
             logs = logActivity.objects.all()
             return render(request,'log.html',locals())
 
+def showLogsLast7(request):
+    dateRange = datetime.date.today()-datetime.timedelta(days=7)
+    logs = logActivity.objects.filter(date__gte=dateRange).order_by('-date')
+    return render(request,'detailedLog.html',locals())
 
 def showActivities(request):
     if request.method == 'GET':
