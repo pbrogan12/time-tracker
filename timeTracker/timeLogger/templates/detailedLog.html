@@ -37,6 +37,9 @@
               <h4><span class="label label-primary">Total time {% widthratio totalTime 60 1 %} min</span></h4>
 
               </li>
+    {% regroup logs by date as date_list %}
+    {% for i in date_list %}
+    <h1>{{ i.grouper }}</h1>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -48,18 +51,19 @@
             </tr>
         </thead>
         <tbody>
-            {% for i in logs %}
+            {% for item in i.list %}
             <tr>
-                <td>{{ i.name }}</td>
-                <td>{{ i.notes }}</td>
-                <td>{% widthratio i.time 60 1 %} min</td>
-                <td>{{ i.date }}</td>
-                <td><a data-toggle="modal" href="#myModal{{i.id}}"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></button></a>
-                        <a href="{% url 'editLog' i.id %}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></button></a></td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.notes }}</td>
+                <td>{% widthratio item.time 60 1 %} min</td>
+                <td>{{ item.date }}</td>
+                <td><a data-toggle="modal" href="#myModal{{item.id}}"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></button></a>
+                        <a href="{% url 'editLog' item.id %}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></button></a></td>
             </tr>
                         {% endfor %}
         </tbody>
     </table>
+    {% endfor %}
 </div>
 </div>
 {% endblock %}
