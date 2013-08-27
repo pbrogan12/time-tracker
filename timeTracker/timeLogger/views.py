@@ -29,6 +29,8 @@ def showLogs(request):
 def showLogsLast7(request):
     dateRange = datetime.date.today()-datetime.timedelta(days=7)
     logs = logActivity.objects.filter(date__gte=dateRange).order_by('-date')
+    totalTime = logActivity.objects.filter(date__gte=dateRange).aggregate(Sum('time'))
+    totalTime = totalTime['time__sum']
     return render(request,'detailedLog.html',locals())
 
 def showActivities(request):
