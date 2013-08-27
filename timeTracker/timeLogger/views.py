@@ -51,7 +51,11 @@ def editLog(request, logId):
         form = LogActivityForm(instance=logs)
         return render(request,'form.html',locals())
     elif request.method == 'POST':
-        form = LogActivityForm(request.POST, instance=logs)
+        postValues = request.POST.copy()
+        b = postValues['time'].split(':')
+        time = int(b[0]) * 3600 + int(b[1]) * 60 + int(b[2])
+        postValues['time'] = time
+        form = LogActivityForm(postValues, instance=logs)
         if form.is_valid():
             form.save()
             return redirect('logs')
