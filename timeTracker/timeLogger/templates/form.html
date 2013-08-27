@@ -1,10 +1,17 @@
+{% extends 'base.html' %}
+{% block nav %}
+    <li><a href="{% url 'logs' %}">Activity Log</a></li>
+    <li><a href="{% url 'showActivities' %}">Activities</a></li>
+{% endblock %}
 {% block content %}
+<h1>Edit Form</h1>
 <form action="" method="post">
     <table>
         {{form.as_table}}
     </table>
     {% csrf_token %}
-    <input type="submit" value="Submit">
+    <button type="button" onClick="location.href='{% url 'logs' %}';" class="btn btn-default">Cancle</button>
+    <button type="button" onClick="document.forms[0].submit();return false;" class="btn btn-primary">Save Changes</button>
 </form>
 {% endblock %}
 
