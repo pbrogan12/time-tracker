@@ -29,7 +29,13 @@
   {% endfor %}
   <div class="row">
       <div class="col-md-6">
-          <h1>Logs</h1> <span class="label label-primary">Total time {% widthratio totalTime 60 1 %} min</span>
+          <ul class="list-inline">
+              <li>
+              <h1>Logs</h1> 
+              </li>
+              <li>
+              <h4><span class="label label-primary">Total time {% widthratio totalTime 60 1 %} min</span></h4>
+              </li>
     <table class="table table-bordered">
         <thead>
             <tr>
