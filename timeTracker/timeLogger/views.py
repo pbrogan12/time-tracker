@@ -23,7 +23,7 @@ def showLogs(request):
             form.save()
             return redirect('logs')
         else:
-            logs = logActivity.objects.all()
+            logs = logActivity.objects.filter(date=datetime.date.today())
             return render(request,'log.html',locals())
 
 def showLogsLast7(request):

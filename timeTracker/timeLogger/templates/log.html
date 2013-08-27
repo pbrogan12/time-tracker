@@ -118,7 +118,10 @@ $('.datepicker').datepicker({
     todayHighlight: 'true',
     });
 $('#id_time').runner({
-        milliseconds: false,
+    milliseconds: false,
+    {% if form.time.value %}
+    startAt: {{ form.time.value}} * 1000,
+    {% endif %}
         format: function millisecondsToString(milliseconds) {
                                         var oneHour = 3600000;
                                         var oneMinute = 60000;
