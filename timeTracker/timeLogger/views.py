@@ -34,6 +34,19 @@ def showActivities(request):
         else:
             activities = Activity.objects.all()
             return render(request,'activities.html',locals())
+def editLog(request, logId):
+    logs = logActivity.objects.get(id=logId)
+    if request.method == 'GET':
+        form = LogActivityForm(instance=logs)
+        return render(request,'form.html',locals())
+    elif request.method == 'POST':
+        form = LogActivityForm(request.POST, instance=logs)
+        if form.is_valid():
+            form.save()
+            return redirect('logs')
+        else:
+            form = LogActivityForm(instance=logs)
+            return render(request,'form.html',locals())
 
 def delLog(request, logId):
     logs = logActivity.objects.filter(id=logId).delete()

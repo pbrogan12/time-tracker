@@ -45,7 +45,8 @@
                 <td>{{ i.name }}</td>
                 <td>{{ i.notes }}</td>
                 <td>{{ i.time }}</td>
-                <td><a data-toggle="modal" href="#myModal{{i.id}}"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></button></a><a href="#"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></button></a></td>
+                <td><a data-toggle="modal" href="#myModal{{i.id}}"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></button></a>
+                        <a href="{% url 'editLog' i.id %}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></button></a></td>
             </tr>
                         {% endfor %}
         </tbody>
