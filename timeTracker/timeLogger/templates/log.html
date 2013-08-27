@@ -35,6 +35,7 @@
             <tr>
                 <th>Name</th>
                 <th>Notes</th>
+                <th>Time</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -43,7 +44,8 @@
             <tr>
                 <td>{{ i.name }}</td>
                 <td>{{ i.notes }}</td>
-                <td><a data-toggle="modal" href="#myModal{{i.id}}"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></button></a>
+                <td>{{ i.time }}</td>
+                <td><a data-toggle="modal" href="#myModal{{i.id}}"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></button></a></td>
             </tr>
                         {% endfor %}
         </tbody>
