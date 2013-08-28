@@ -6,7 +6,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'timeTracker.views.home', name='home'),
+      url(r'^$', 'timeTracker.views.home', name='home'),
     # url(r'^timeTracker/', include('timeTracker.foo.urls')),
       url(r'^logs/', include('timeLogger.urls')),
          (r'^accounts/', include('userena.urls')),
