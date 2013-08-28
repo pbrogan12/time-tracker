@@ -9,6 +9,8 @@ urlpatterns = patterns('',
     # url(r'^$', 'timeTracker.views.home', name='home'),
     # url(r'^timeTracker/', include('timeTracker.foo.urls')),
       url(r'^logs/', include('timeLogger.urls')),
+         (r'^accounts/', include('userena.urls')),
+
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
