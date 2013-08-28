@@ -2,10 +2,13 @@
 from django.db.models import Sum
 from timeLogger.models import logActivity, Activity
 from timeLogger.forms import LogActivityForm, ActivityForm
+from accounts.models import MyProfile
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 import datetime 
 
+@login_required(login_url='/accounts/signin')
 def showLogs(request):
     if request.method == 'GET':
         logs = logActivity.objects.filter(date=datetime.date.today())
@@ -14,11 +17,13 @@ def showLogs(request):
         form = LogActivityForm()
         return render(request,'log.html',locals())
     elif request.method == 'POST':
+        accountId = MyProfile.objects.get(user_id=request.user.id)
+        form = logActivity(account_id=accountId.id)
         postValues = request.POST.copy()
         b = postValues['time'].split(':')
         time = int(b[0]) * 3600 + int(b[1]) * 60 + int(b[2])
         postValues['time'] = time
-        form = LogActivityForm(postValues)
+        form = LogActivityForm(postValues, instance=form)
         if form.is_valid():
             form.save()
             return redirect('logs')
@@ -40,7 +45,9 @@ def showActivities(request):
         form = ActivityForm()
         return render(request,'activities.html',locals())
     elif request.method == 'POST':
-        form = ActivityForm(request.POST)
+        accountId = MyProfile.objects.get(user_id=request.user.id)
+        form = Activity(account_id=accountId.id)
+        form = ActivityForm(request.POST, instance=form)
         if form.is_valid():
             form.save()
             return redirect('showActivities')
