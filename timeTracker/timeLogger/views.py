@@ -11,10 +11,12 @@ import datetime
 @login_required(login_url='/accounts/signin')
 def showLogs(request):
     if request.method == 'GET':
-        logs = logActivity.objects.filter(date=datetime.date.today())
-        totalTime = logActivity.objects.filter(date=datetime.date.today()).aggregate(Sum('time'))
-        totalTime = totalTime['time__sum']
         form = LogActivityForm()
+        accountId = MyProfile.objects.get(user_id=request.user.id)
+        form.fields['name'].queryset = Activity.objects.filter(account_id=accountId.id)
+        logs = logActivity.objects.filter(date=datetime.date.today(),account_id=accountId.id)
+        totalTime = logActivity.objects.filter(date=datetime.date.today(),account_id=accountId.id).aggregate(Sum('time'))
+        totalTime = totalTime['time__sum']
         return render(request,'log.html',locals())
     elif request.method == 'POST':
         accountId = MyProfile.objects.get(user_id=request.user.id)
@@ -31,16 +33,20 @@ def showLogs(request):
             logs = logActivity.objects.filter(date=datetime.date.today())
             return render(request,'log.html',locals())
 
+@login_required(login_url='/accounts/signin')
 def showLogsLast7(request):
+    accountId = MyProfile.objects.get(user_id=request.user.id)
     dateRange = datetime.date.today()-datetime.timedelta(days=7)
-    logs = logActivity.objects.filter(date__gte=dateRange).order_by('-date')
-    totalTime = logActivity.objects.filter(date__gte=dateRange).aggregate(Sum('time'))
+    logs = logActivity.objects.filter(date__gte=dateRange,account_id=accountId.id).order_by('-date')
+    totalTime = logActivity.objects.filter(date__gte=dateRange,account_id=accountId.id).aggregate(Sum('time'))
     totalTime = totalTime['time__sum']
     return render(request,'detailedLog.html',locals())
 
+@login_required(login_url='/accounts/signin')
 def showActivities(request):
+    accountId = MyProfile.objects.get(user_id=request.user.id)
     if request.method == 'GET':
-        activities = Activity.objects.all()
+        activities = Activity.objects.filter(account_id=accountId.id)
         context = {'activities':activities}
         form = ActivityForm()
         return render(request,'activities.html',locals())
@@ -52,10 +58,13 @@ def showActivities(request):
             form.save()
             return redirect('showActivities')
         else:
-            activities = Activity.objects.all()
+            activities = Activity.objects.filter(account_id=accountId.id)
             return render(request,'activities.html',locals())
+
+@login_required(login_url='/accounts/signin')
 def editLog(request, logId):
-    logs = logActivity.objects.get(id=logId)
+    accountId = MyProfile.objects.get(user_id=request.user.id)
+    logs = logActivity.objects.get(account_id=accountId.id, id=logId)
     if request.method == 'GET':
         form = LogActivityForm(instance=logs)
         return render(request,'form.html',locals())
@@ -72,10 +81,14 @@ def editLog(request, logId):
             form = LogActivityForm(instance=logs)
             return render(request,'form.html',locals())
 
+@login_required(login_url='/accounts/signin')
 def delLog(request, logId):
-    logs = logActivity.objects.filter(id=logId).delete()
+    accountId = MyProfile.objects.get(user_id=request.user.id)
+    logs = logActivity.objects.filter(account_id=accountId.id,id=logId).delete()
     return redirect('logs')
 
+@login_required(login_url='/accounts/signin')
 def delActivity(request, logId):
-    logs = Activity.objects.filter(id=logId).delete()
+    accountId = MyProfile.objects.get(user_id=request.user.id)
+    logs = Activity.objects.filter(account_id=accountId.id,id=logid).delete()
     return redirect('showActivities')
