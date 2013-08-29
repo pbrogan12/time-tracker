@@ -34,7 +34,11 @@
               <h1>Today's Logs</h1> 
               </li>
               <li>
+              {% if totalTime %}
               <h4><span class="label label-primary">Total time today {% widthratio totalTime 60 1 %} min</span></h4>
+              {% else %}
+              <h4><span class="label label-primary">Total time today 0 min</span></h4>
+              {% endif %}
               </li>
     <table class="table table-bordered">
         <thead>
