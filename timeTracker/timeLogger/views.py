@@ -48,7 +48,7 @@ def showAllLogs(request):
     logs = logActivity.objects.filter(account_id=accountId.id)
     totalTime = logActivity.objects.filter(account_id=accountId.id).aggregate(Sum('time'))
     totalTime = totalTime['time__sum']
-    return render(request,'detailedLog.html',locals())
+    return render(request,'allLogs.html',locals())
 
 @login_required(login_url='/accounts/signin')
 def showActivities(request):
