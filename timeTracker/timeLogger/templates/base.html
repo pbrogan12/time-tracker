@@ -40,7 +40,13 @@
                     <li><a href="/accounts/signout">Sign out</a></li>
                 </ul>
                 </li>
-               {% endif %}
+                {% else %}
+                {% if user.is_authenticated %}
+                {% else %}
+                <li><a href={% url 'userena_signin' %}>Sign in</a></li>
+                <li><a href={% url 'userena_signup' %}>Sign up</a></li>
+                {% endif %}
+                {% endif %}
            </ul>
            
         </div><!--/.nav-collapse -->
