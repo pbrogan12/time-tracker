@@ -84,11 +84,12 @@ def editLog(request, logId):
 @login_required(login_url='/accounts/signin')
 def delLog(request, logId):
     accountId = MyProfile.objects.get(user_id=request.user.id)
-    logs = logActivity.objects.filter(account_id=accountId.id,id=logId).delete()
+    logActivity.objects.get(account_id=accountId.id,id=logId).delete()
     return redirect('logs')
 
 @login_required(login_url='/accounts/signin')
 def delActivity(request, logId):
     accountId = MyProfile.objects.get(user_id=request.user.id)
-    logs = Activity.objects.filter(account_id=accountId.id,id=logid).delete()
+    Activity.objects.get(account_id=accountId.id,id=logId).delete()
     return redirect('showActivities')
+
