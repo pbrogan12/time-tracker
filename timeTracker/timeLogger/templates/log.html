@@ -67,6 +67,9 @@
         <p><strong>Hey</strong>, you don't have any logs for today. Get started by adding a log from the right side form.</p>
     </div>
     {% endif %}
+    <li>
+        <a href="{% url 'logsLast7' %}" class="btn btn-primary">Last 7 Days</a>
+    </li>
 </div>
 <div class="col-md-6">
     <h1>Add Log</h1>
@@ -107,11 +110,6 @@
         </form>
         <button type="button" onClick="document.forms[0].submit();return false;" class="btn btn-primary">Add log</button>
     </div>
-    <ul class="list-inline">
-        <li>
-        <a href="{% url 'logsLast7' %}" class="btn btn-primary">Last 7 Days</a>
-        </li>
-    </ul>
 </div>
 {% endblock %}
 {% block js %}
