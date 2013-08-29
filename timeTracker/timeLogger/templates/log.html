@@ -118,6 +118,7 @@
 $(document).ready(function(){ 
 $("input").addClass("form-control");
 $("textarea").addClass("form-control");
+$("select").addClass("form-control");
 $("#id_date").addClass("datepicker");
 $("#id_date").attr('value', '{% now 'Y-m-d' %}');
 $("#id_date").attr('data-date', '{% now 'Y-m-d' %}');
@@ -126,6 +127,7 @@ $('.datepicker').datepicker({
     format: 'yyyy-mm-dd',
     autoclose: 'true',
     todayHighlight: 'true',
+    endDate: '{% now 'Y-m-d' %}',
     });
 $('#id_time').runner({
     milliseconds: false,
