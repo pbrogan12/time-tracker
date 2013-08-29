@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 import datetime 
 
 @login_required(login_url='/accounts/signin')
-def showLogs(request):
+def showTodaysLogs(request):
     if request.method == 'GET':
         form = LogActivityForm()
         accountId = MyProfile.objects.get(user_id=request.user.id)
@@ -34,11 +34,19 @@ def showLogs(request):
             return render(request,'log.html',locals())
 
 @login_required(login_url='/accounts/signin')
-def showLogsLast7(request):
+def showLast7Logs(request):
     accountId = MyProfile.objects.get(user_id=request.user.id)
     dateRange = datetime.date.today()-datetime.timedelta(days=7)
     logs = logActivity.objects.filter(date__gte=dateRange,account_id=accountId.id).order_by('-date')
     totalTime = logActivity.objects.filter(date__gte=dateRange,account_id=accountId.id).aggregate(Sum('time'))
+    totalTime = totalTime['time__sum']
+    return render(request,'detailedLog.html',locals())
+
+@login_required(login_url='/accounts/signin')
+def showAllLogs(request):
+    accountId = MyProfile.objects.get(user_id=request.user.id)
+    logs = logActivity.objects.filter(account_id=accountId.id)
+    totalTime = logActivity.objects.filter(account_id=accountId.id).aggregate(Sum('time'))
     totalTime = totalTime['time__sum']
     return render(request,'detailedLog.html',locals())
 
