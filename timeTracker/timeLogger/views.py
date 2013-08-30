@@ -22,10 +22,15 @@ def showTodaysLogs(request):
         accountId = MyProfile.objects.get(user_id=request.user.id)
         form = logActivity(account_id=accountId.id)
         postValues = request.POST.copy()
-        b = postValues['time'].split(':')
-        time = int(b[0]) * 3600 + int(b[1]) * 60 + int(b[2])
-        postValues['time'] = time
-        form = LogActivityForm(postValues, instance=form)
+        try:
+            b = postValues['time'].split(':')
+            time = int(b[0]) * 3600 + int(b[1]) * 60 + int(b[2])
+            postValues['time'] = time
+            form = LogActivityForm(postValues, instance=form)
+        except:
+            postValues['time'] = 'foo'
+            form = LogActivityForm(postValues, instance=form)
+        
         if form.is_valid():
             form.save()
             return redirect('logs')
