@@ -1,7 +1,7 @@
 # Create your views here.
 from django.db.models import Sum
-from timeLogger.models import logActivity, Activity
-from timeLogger.forms import LogActivityForm, ActivityForm
+from timeLogger.models import logActivity, Activity, dailySummary
+from timeLogger.forms import LogActivityForm, ActivityForm, dailySummaryForm
 from accounts.models import MyProfile
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -33,6 +33,17 @@ def showTodaysLogs(request):
         
         if form.is_valid():
             form.save()
+            if dailySummary.objects.filter(account_id=accountId.id,date=datetime.date.today()).exists():
+                pass
+            else:
+                data = {'date' : postValues['date'],
+                        'account' : accountId.id,
+                        'rating' : ''}
+                f = dailySummaryForm(data)
+                if f.is_valid():
+                    f.save()
+                else:
+                    pass
             return redirect('logs')
         else:
             accountId = MyProfile.objects.get(user_id=request.user.id)

@@ -1,5 +1,9 @@
 from django.forms import ModelForm
-from timeLogger.views import logActivity, Activity
+from timeLogger.views import logActivity, Activity, dailySummary
+
+class dailySummaryForm(ModelForm):
+    class Meta:
+        model = dailySummary
 
 class LogActivityForm(ModelForm):
     class Meta:
