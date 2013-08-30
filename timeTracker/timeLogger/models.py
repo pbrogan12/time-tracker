@@ -13,7 +13,7 @@ class logActivity(models.Model):
     name = models.ForeignKey('Activity')
     date = models.DateField()
     time = models.IntegerField()
-    notes = models.TextField()
+    notes = models.TextField(blank=True)
     account = models.ForeignKey(MyProfile)
     
     def __unicode__(self):
