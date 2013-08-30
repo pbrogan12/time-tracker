@@ -35,7 +35,9 @@ def showTodaysLogs(request):
             form.save()
             return redirect('logs')
         else:
-            logs = logActivity.objects.filter(date=datetime.date.today())
+            accountId = MyProfile.objects.get(user_id=request.user.id)
+            form.fields['name'].queryset = Activity.objects.filter(account_id=accountId.id)
+            logs = logActivity.objects.filter(date=datetime.date.today(),account_id=accountId.id)
             return render(request,'log.html',locals())
 
 @login_required(login_url='/accounts/signin')
