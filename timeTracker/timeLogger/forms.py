@@ -8,7 +8,7 @@ class dailySummaryForm(ModelForm):
 class LogActivityForm(ModelForm):
     class Meta:
         model = logActivity
-        exclude = ('account',)
+        exclude = ('account','date')
 
 class ActivityForm(ModelForm):
     class Meta:

@@ -20,7 +20,7 @@ def showTodaysLogs(request):
         return render(request,'log.html',locals())
     elif request.method == 'POST':
         accountId = MyProfile.objects.get(user_id=request.user.id)
-        form = logActivity(account_id=accountId.id)
+        form = logActivity(account_id=accountId.id,date=datetime.date.today())
         postValues = request.POST.copy()
         try:
             b = postValues['time'].split(':')
@@ -30,7 +30,6 @@ def showTodaysLogs(request):
         except:
             postValues['time'] = 'foo'
             form = LogActivityForm(postValues, instance=form)
-        
         if form.is_valid():
             form.save()
             if dailySummary.objects.filter(account_id=accountId.id,date=datetime.date.today()).exists():

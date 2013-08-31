@@ -82,15 +82,7 @@
                         {{ field.label_tag }}
                     </th>
                     <td>
-                        {% if 'date' in field.label_tag %} 
-                        <div class="input-group">
-                            {{ field }} 
-                            <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                            {{ field.errors }}
-                        </div>
-                        {% elif 'time' in field.label_tag %}
+                        {% if 'time' in field.label_tag %}
                         <div class="input-group">
                             <span class="input-group-btn">
                                 <button id="startButton" class="btn btn-success" type="button">Start</button>
