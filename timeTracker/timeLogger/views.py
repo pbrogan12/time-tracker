@@ -35,7 +35,7 @@ def showTodaysLogs(request):
             if dailySummary.objects.filter(account_id=accountId.id,date=datetime.date.today()).exists():
                 pass
             else:
-                data = {'date' : postValues['date'],
+                data = {'date' : datetime.date.today(),
                         'account' : accountId.id,
                         'rating' : ''}
                 f = dailySummaryForm(data)
