@@ -48,6 +48,8 @@ def showTodaysLogs(request):
             accountId = MyProfile.objects.get(user_id=request.user.id)
             form.fields['name'].queryset = Activity.objects.filter(account_id=accountId.id)
             logs = logActivity.objects.filter(date=datetime.date.today(),account_id=accountId.id)
+            totalTime = logActivity.objects.filter(date=datetime.date.today(),account_id=accountId.id).aggregate(Sum('time'))
+            totalTime = totalTime['time__sum']
             return render(request,'log.html',locals())
 
 @login_required(login_url='/accounts/signin')
