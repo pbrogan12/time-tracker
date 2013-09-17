@@ -4,7 +4,7 @@
     <li><a href="{% url 'showActivities' %}">Activities</a></li>
 {% endblock %}
 {% block content %}
-<h1>Edit Log</h1>
+<h1>{{logs.name}}</h1>
             <form action="" method="post">{% csrf_token %}
                 <table class="table table-condensed">
                     {% for field in form %}

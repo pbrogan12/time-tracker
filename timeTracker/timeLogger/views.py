@@ -8,49 +8,28 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 import datetime 
 
+
+@login_required(login_url='/accounts/signin')
+def addLog(request, actId):
+    accountId = MyProfile.objects.get(user_id=request.user.id)
+    activityName = Activity.objects.get(account_id=accountId.id,id=actId)
+    if activityName:
+        log = logActivity(account_id=accountId.id,name_id=activityName.id)
+        f = logActivity.objects.create(date=datetime.date.today(),time= 0,account_id=accountId.id,name_id=activityName.id)
+        f.save()
+        return redirect('editLog',f.id)
+    else:
+        return redirect('logs')
+
 @login_required(login_url='/accounts/signin')
 def showTodaysLogs(request):
-    if request.method == 'GET':
-        form = LogActivityForm()
-        accountId = MyProfile.objects.get(user_id=request.user.id)
-        form.fields['name'].queryset = Activity.objects.filter(account_id=accountId.id)
-        logs = logActivity.objects.filter(date=datetime.date.today(),account_id=accountId.id)
-        totalTime = logActivity.objects.filter(date=datetime.date.today(),account_id=accountId.id).aggregate(Sum('time'))
-        totalTime = totalTime['time__sum']
-        return render(request,'log.html',locals())
-    elif request.method == 'POST':
-        accountId = MyProfile.objects.get(user_id=request.user.id)
-        form = logActivity(account_id=accountId.id,date=datetime.date.today())
-        postValues = request.POST.copy()
-        try:
-            b = postValues['time'].split(':')
-            time = int(b[0]) * 3600 + int(b[1]) * 60 + int(b[2])
-            postValues['time'] = time
-            form = LogActivityForm(postValues, instance=form)
-        except:
-            postValues['time'] = 'foo'
-            form = LogActivityForm(postValues, instance=form)
-        if form.is_valid():
-            form.save()
-            if dailySummary.objects.filter(account_id=accountId.id,date=datetime.date.today()).exists():
-                pass
-            else:
-                data = {'date' : datetime.date.today(),
-                        'account' : accountId.id,
-                        'rating' : ''}
-                f = dailySummaryForm(data)
-                if f.is_valid():
-                    f.save()
-                else:
-                    pass
-            return redirect('logs')
-        else:
-            accountId = MyProfile.objects.get(user_id=request.user.id)
-            form.fields['name'].queryset = Activity.objects.filter(account_id=accountId.id)
-            logs = logActivity.objects.filter(date=datetime.date.today(),account_id=accountId.id)
-            totalTime = logActivity.objects.filter(date=datetime.date.today(),account_id=accountId.id).aggregate(Sum('time'))
-            totalTime = totalTime['time__sum']
-            return render(request,'log.html',locals())
+    accountId = MyProfile.objects.get(user_id=request.user.id)
+    activities = Activity.objects.filter(account_id=accountId.id)
+    print activities
+    logs = logActivity.objects.filter(date=datetime.date.today(),account_id=accountId.id)
+    totalTime = logActivity.objects.filter(date=datetime.date.today(),account_id=accountId.id).aggregate(Sum('time'))
+    totalTime = totalTime['time__sum']
+    return render(request,'log.html',locals())
 
 @login_required(login_url='/accounts/signin')
 def showLast7Logs(request):
@@ -103,6 +82,17 @@ def editLog(request, logId):
         form = LogActivityForm(postValues, instance=logs)
         if form.is_valid():
             form.save()
+            if dailySummary.objects.filter(account_id=accountId.id,date=datetime.date.today()).exists():
+                pass
+            else:
+                data = {'date' : datetime.date.today(),
+                        'account' : accountId.id,
+                        'rating' : ''}
+                f = dailySummaryForm(data)
+                if f.is_valid():
+                    f.save()
+                else:
+                    pass
             return redirect('logs')
         else:
             form = LogActivityForm(instance=logs)
