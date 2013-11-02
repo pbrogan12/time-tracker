@@ -6,7 +6,7 @@ from accounts.models import MyProfile
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-import datetime 
+import datetime
 
 
 @login_required(login_url='/accounts/signin')
@@ -76,9 +76,12 @@ def editLog(request, logId):
         return render(request,'form.html',locals())
     elif request.method == 'POST':
         postValues = request.POST.copy()
-        b = postValues['time'].split(':')
-        time = int(b[0]) * 3600 + int(b[1]) * 60 + int(b[2])
-        postValues['time'] = time
+        try:
+            b = postValues['time'].split(':')
+            time = int(b[0]) * 3600 + int(b[1]) * 60 + int(b[2])
+            postValues['time'] = time
+        except:
+            pass
         form = LogActivityForm(postValues, instance=logs)
         if form.is_valid():
             form.save()
@@ -95,7 +98,7 @@ def editLog(request, logId):
                     pass
             return redirect('logs')
         else:
-            form = LogActivityForm(instance=logs)
+            form.errors['time'] = "Format must be in HH:MM:SS"
             return render(request,'form.html',locals())
 
 @login_required(login_url='/accounts/signin')
