@@ -47,6 +47,10 @@
 {% endblock %}
 
 {% block js %}
+window.onbeforeunload = function(e) {
+  return 'Dialog text here.';
+};
+
 $(document).ready(function(){ 
 $("input").addClass("form-control");
 $("#id_date").addClass("datepicker");
